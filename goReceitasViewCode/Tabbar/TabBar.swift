@@ -44,7 +44,6 @@ class TabBar: UITabBarController {
         itens[3].image = UIImage(named: "perfil")
 
         
-        // teste git
         
     }
     

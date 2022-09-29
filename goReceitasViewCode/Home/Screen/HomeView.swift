@@ -7,12 +7,21 @@
 
 import UIKit
 
-
-    
+//protocol HomeViewProtocool:AnyObject{
+//    
+//    func actionPageControl(_ sender:UIPageControl)
+//}
+//    
 
 
 class HomeView: UIView {
 
+//    private weak var delagate:HomeViewProtocool?
+//    
+//    func delegate(delegate:HomeViewProtocool?){
+//        self.delagate = delegate
+//    }
+    
     
     lazy var label:UILabel = {
         let label = UILabel()
@@ -60,18 +69,34 @@ class HomeView: UIView {
         return label
     }()
     
-//    lazy var collectionView1:UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        let collectionView1 = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView1.register(CollectionViewCell1.self, forCellWithReuseIdentifier: CollectionViewCell1.identifier)
-//        collectionView1.translatesAutoresizingMaskIntoConstraints = false
-//        collectionView1.backgroundColor = UIColor(red: 247/255, green: 237/255, blue: 253/255, alpha: 1)
-//        collectionView1.showsHorizontalScrollIndicator = false
-////        collectionView.delaysContentTouches = false
-//        return collectionView1
-//    }()
+    lazy var collectionView1:UICollectionView = {
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout.init())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
+        collectionView.register(CollectionViewCell1.self, forCellWithReuseIdentifier: CollectionViewCell1.identifier)
+        let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 2
+        layout.minimumLineSpacing = 2
+        collectionView.setCollectionViewLayout(layout, animated: false)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.layer.cornerRadius = 20
+        collectionView.showsHorizontalScrollIndicator = false
+        return collectionView
+    }()
     
+    lazy var pagControl: UIPageControl = {
+        let pc = UIPageControl()
+        pc.numberOfPages = 4
+        pc.translatesAutoresizingMaskIntoConstraints = false
+        pc.currentPage = 0
+        pc.pageIndicatorTintColor = .white
+        pc.currentPageIndicatorTintColor = .purple
+        pc.isUserInteractionEnabled = false
+//        pc.addTarget(self, action: #selector(self.tappedPageControl), for: .touchUpInside)
+        return pc
+    }()
     
     
     
@@ -97,10 +122,16 @@ class HomeView: UIView {
         self.addSubview(self.categoriasLabel)
         self.addSubview(self.collectionView)
         self.addSubview(self.experimenteLabel)
+        self.addSubview(self.collectionView1)
+        self.addSubview(self.pagControl)
 //        self.addSubview(self.collectionView1)
     }
     
  
+//    @objc private func tappedPageControl(_ sender: UIPageControl){
+//
+//
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -129,11 +160,17 @@ class HomeView: UIView {
             self.experimenteLabel.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor,constant: 25),
             self.experimenteLabel.leadingAnchor.constraint(equalTo: self.categoriasLabel.leadingAnchor),
             
-//            self.collectionView1.topAnchor.constraint(equalTo: self.experimenteLabel.bottomAnchor,constant: 15),
-//            self.collectionView1.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 40),
-//            self.collectionView1.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -40),
-//            self.collectionView1.heightAnchor.constraint(equalToConstant: 300),
-////            self.collectionView1.heightAnchor.constraint(equalToConstant: 300),
+            self.collectionView1.topAnchor.constraint(equalTo: self.experimenteLabel.bottomAnchor,constant: 15),
+            self.collectionView1.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 15),
+            self.collectionView1.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -15),
+            self.collectionView1.heightAnchor.constraint(equalToConstant: 300),
+            self.collectionView1.widthAnchor.constraint(equalToConstant: 300),
+            
+            
+            self.pagControl.topAnchor.constraint(equalTo: self.collectionView1.bottomAnchor,constant: -30),
+            self.pagControl.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 15),
+            self.pagControl.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -15),
+
 //            
             
          
